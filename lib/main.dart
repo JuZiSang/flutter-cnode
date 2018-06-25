@@ -1,4 +1,4 @@
 import 'package:flutter/material.dart';
-import 'ui/app.dart';
+import 'package:flutter_cnode/app.dart';
 
 void main() => runApp(new App());

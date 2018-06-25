@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import './home.dart';
+import './router.dart';
 
 class App extends StatefulWidget {
   @override
@@ -15,7 +15,8 @@ class AppState extends State<App> {
         primaryColor: new Color(0xff333333),
         accentColor: new Color(0xff333333),
       ),
-      home: new Home(),
+      routes: buildRouter(),
+      initialRoute: '/',
     );
   }
 }
