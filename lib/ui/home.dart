@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'home_drawer.dart';
+import '../components/index.dart' show HomeDrawer;
 
 class Home extends StatefulWidget {
   @override
@@ -8,6 +8,9 @@ class Home extends StatefulWidget {
 
 class HomeState extends State<Home> {
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
+
+  // 当前选中的Menu
+  String selectItemMenu = '全部';
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +27,17 @@ class HomeState extends State<Home> {
               _scaffoldKey.currentState.openDrawer();
             }),
       ),
-      drawer: new HomeDrawer(),
+      drawer: new HomeDrawer(
+        selectItemMenu: selectItemMenu,
+        onSelectListener: (item) {
+          setState(() {
+            selectItemMenu = item;
+          });
+        },
+        onBottomClickListener: (item) {
+          print(item);
+        },
+      ),
     );
   }
 }

@@ -1,13 +1,38 @@
 import 'package:flutter/material.dart';
 
 class HomeDrawer extends StatelessWidget {
-  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
-  final List<ListTile> listTiles = [];
+  // 选中的控件
+  String selectItemMenu;
 
-  /**
-   * 头部Header
-   */
-  Widget _newDrawerHeader() {
+  // 选择的item
+  Function onSelectListener;
+
+  // 单间下面的按钮
+  Function onBottomClickListener;
+
+  final List<ListItem> articleListTiles = [
+    new ListItem(Icons.forum, '全部'),
+    new ListItem(Icons.thumb_up, '精华'),
+    new ListItem(Icons.share, '分享'),
+    new ListItem(Icons.face, '回答'),
+    new ListItem(Icons.local_mall, '招聘'),
+    new ListItem(Icons.bug_report, '测试'),
+  ];
+
+  final List<ListItem> bottomListTiles = [
+    new ListItem(Icons.perm_phone_msg, '消息'),
+    new ListItem(Icons.notifications, '设置'),
+    new ListItem(Icons.error, '关于'),
+  ];
+
+  HomeDrawer({
+    @required this.selectItemMenu,
+    this.onSelectListener,
+    this.onBottomClickListener,
+  });
+
+  // 头部Header
+  Widget _newDrawerHeader(context) {
     return new DrawerHeader(
         padding: const EdgeInsets.all(0.0),
         decoration: new BoxDecoration(
@@ -87,18 +112,54 @@ class HomeDrawer extends StatelessWidget {
         ));
   }
 
-  /**
-   * 文章ListItem
-   */
-  Widget _articleListItem() {
-    return new Column(
-      children: <Widget>[
-        new ListTile(
-          trailing: new Icon(Icons.forum),
-          title: new Text('全部'),
-          onTap: () {},
-        )
-      ],
+  // 文章ListItem
+  Widget _articleListItem(context) {
+    return new ListTileTheme(
+      selectedColor: new Color(0xff80bd01),
+      style: ListTileStyle.drawer,
+      dense: true,
+      child: new Column(
+        children: <Widget>[
+          new Column(
+            children: articleListTiles.map((item) {
+              return new ListTile(
+                leading: new Icon(item.icon),
+                selected: selectItemMenu == item.title,
+                title: new Text(
+                  item.title,
+                  style: new TextStyle(fontSize: 14.0),
+                ),
+                onTap: () {
+                  if (onSelectListener != null) {
+                    onSelectListener(item.title);
+                  }
+                  Navigator.pop(context);
+                },
+              );
+            }).toList(),
+          ),
+          new Divider(
+            color: Theme.of(context).dividerColor,
+          ),
+          new Column(
+            children: bottomListTiles.map((item) {
+              return new ListTile(
+                leading: new Icon(item.icon),
+                title: new Text(
+                  item.title,
+                  style: new TextStyle(fontSize: 14.0),
+                ),
+                onTap: () {
+                  if (onBottomClickListener != null) {
+                    onBottomClickListener(item.title);
+                  }
+                  Navigator.pop(context);
+                },
+              );
+            }).toList(),
+          ),
+        ],
+      ),
     );
   }
 
@@ -107,12 +168,17 @@ class HomeDrawer extends StatelessWidget {
     return new Drawer(
       child: new Column(
         children: <Widget>[
-          _newDrawerHeader(),
-          _articleListItem(),
+          _newDrawerHeader(context),
+          _articleListItem(context),
         ],
       ),
     );
   }
 }
 
-class ListItem {}
+class ListItem {
+  IconData icon;
+  String title;
+
+  ListItem(this.icon, this.title);
+}
