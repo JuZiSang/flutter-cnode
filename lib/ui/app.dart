@@ -12,7 +12,8 @@ class AppState extends State<App> {
     return new MaterialApp(
       title: 'CNode',
       theme: new ThemeData(
-        primarySwatch: Colors.blue,
+        primaryColor: new Color(0xff333333),
+        accentColor: new Color(0xff333333),
       ),
       home: new Home(),
     );
