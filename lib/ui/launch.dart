@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
+import 'package:flutter_cnode/router/router.dart';
 
 class Launch extends StatefulWidget {
   @override
@@ -12,6 +13,7 @@ class LaunchState extends State<Launch> {
     return new Container(
       decoration: BoxDecoration(
         image: new DecorationImage(
+          fit: BoxFit.fill,
           image: new AssetImage('images/launch_bg.png'),
         ),
       ),
@@ -58,8 +60,13 @@ class LaunchState extends State<Launch> {
   void initState() {
     // TODO: implement initState
     new Timer(new Duration(milliseconds: 3000), () {
-      print('timer');
-      Navigator.pushReplacementNamed(this.context, '/home');
+      Application.router.navigateTo(
+        this.context,
+        '/home',
+        replace: true,
+//        transitionDuration: const Duration(milliseconds: 1000),
+        transition: TransitionType.inFromRight,
+      );
     });
     super.initState();
   }

@@ -10,6 +10,9 @@ class HomeDrawer extends StatelessWidget {
   // 单间下面的按钮
   Function onBottomClickListener;
 
+  // 模式切换
+  Function onAppDisplayType;
+
   final List<ListItem> articleListTiles = [
     new ListItem(Icons.forum, '全部'),
     new ListItem(Icons.thumb_up, '精华'),
@@ -29,6 +32,7 @@ class HomeDrawer extends StatelessWidget {
     @required this.selectItemMenu,
     this.onSelectListener,
     this.onBottomClickListener,
+    this.onAppDisplayType,
   });
 
   // 头部Header
@@ -90,8 +94,11 @@ class HomeDrawer extends StatelessWidget {
             new Positioned(
               right: 24.0,
               top: 24.0,
-              child: new ImageIcon(
-                new AssetImage('images/ic_brightness_3_white_24dp.png'),
+              child: new GestureDetector(
+                onTap: onAppDisplayType,
+                child: new ImageIcon(
+                  new AssetImage('images/ic_brightness_3_white_24dp.png'),
+                ),
               ),
             ),
             new Positioned(

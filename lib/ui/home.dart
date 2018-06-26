@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import '../components/index.dart' show HomeDrawer;
+import 'package:flutter_cnode/widget/widget.dart' show HomeDrawer;
+import 'package:flutter_cnode/store/store.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -27,15 +28,27 @@ class HomeState extends State<Home> {
               _scaffoldKey.currentState.openDrawer();
             }),
       ),
-      drawer: new HomeDrawer(
-        selectItemMenu: selectItemMenu,
-        onSelectListener: (item) {
-          setState(() {
-            selectItemMenu = item;
-          });
+      drawer: new StoreConnector<AppState, VoidCallback>(
+        converter: (store) {
+          return () =>
+              store.dispatch(new AppConfigAction(
+                  displayType: store.state.config.displayType == 1 ? 0 : 1));
         },
-        onBottomClickListener: (item) {
-          print(item);
+        builder: (context, callback) {
+          return new HomeDrawer(
+            selectItemMenu: selectItemMenu,
+            onSelectListener: (item) {
+              setState(() {
+                selectItemMenu = item;
+              });
+            },
+            onBottomClickListener: (item) {
+              print(item);
+            },
+            onAppDisplayType: () {
+              callback();
+            },
+          );
         },
       ),
       body: null,
