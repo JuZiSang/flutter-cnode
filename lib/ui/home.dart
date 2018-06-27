@@ -19,7 +19,7 @@ class HomeState extends State<Home> {
       key: _scaffoldKey,
       primary: true,
       appBar: new AppBar(
-        title: new Text("CNode社区"),
+        title: new Text(selectItemMenu == '全部' ? "CNode社区" : selectItemMenu),
         leading: new IconButton(
             icon: new Icon(Icons.menu),
             alignment: Alignment.centerLeft,
@@ -30,9 +30,8 @@ class HomeState extends State<Home> {
       ),
       drawer: new StoreConnector<AppState, VoidCallback>(
         converter: (store) {
-          return () =>
-              store.dispatch(new AppConfigAction(
-                  displayType: store.state.config.displayType == 1 ? 0 : 1));
+          return () => store.dispatch(new AppConfigAction(
+              displayType: store.state.config.displayType == 1 ? 0 : 1));
         },
         builder: (context, callback) {
           return new HomeDrawer(

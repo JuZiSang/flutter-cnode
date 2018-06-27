@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 class HomeDrawer extends StatelessWidget {
   // 选中的控件
@@ -58,10 +59,26 @@ class HomeDrawer extends StatelessWidget {
                       width: 72.0,
                       height: 72.0,
                       alignment: Alignment.topLeft,
+//                      child: new CachedNetworkImage(
+//                        imageUrl:
+//                            'https://avatars2.githubusercontent.com/u/14973323?s=460&v=4',
+//                        placeholder: new CircularProgressIndicator(),
+//                        errorWidget: new Icon(Icons.error),
+//                        width: 72.0,
+//                        height: 72.0,
+//                        fit: BoxFit.fill,
+//                      ),
                       child: new CircleAvatar(
                         radius: 36.0,
-                        backgroundImage: new NetworkImage(
-                            'https://avatars2.githubusercontent.com/u/14973323?s=460&v=4'),
+//                        child: new CachedNetworkImage(
+//                            placeholder: new CircularProgressIndicator(
+//                              backgroundColor: Colors.white70,
+//                            ),
+//                            errorWidget: new Icon(Icons.error),
+//                            imageUrl:
+//                                'https://avatars2.githubusercontent.com/u/14973323?s=460&v=4'),
+                        backgroundImage: new CachedNetworkImageProvider(
+                            'http://www.juzisang.com/usr/uploads/2017/11/1677554480.jpg'),
                       ),
                     ),
                     new Container(

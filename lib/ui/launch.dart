@@ -64,8 +64,8 @@ class LaunchState extends State<Launch> {
         this.context,
         '/home',
         replace: true,
-//        transitionDuration: const Duration(milliseconds: 1000),
-        transition: TransitionType.inFromRight,
+//        transitionDuration: const Duration(milliseconds: 500),
+        transition: TransitionType.fadeIn,
       );
     });
     super.initState();
