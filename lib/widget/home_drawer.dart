@@ -5,6 +5,9 @@ class HomeDrawer extends StatelessWidget {
   // 选中的控件
   String selectItemMenu;
 
+  // 显示模式
+  int displayType;
+
   // 选择的item
   Function onSelectListener;
 
@@ -31,6 +34,7 @@ class HomeDrawer extends StatelessWidget {
 
   HomeDrawer({
     @required this.selectItemMenu,
+    this.displayType = 1,
     this.onSelectListener,
     this.onBottomClickListener,
     this.onAppDisplayType,
@@ -41,9 +45,11 @@ class HomeDrawer extends StatelessWidget {
     return new DrawerHeader(
         padding: const EdgeInsets.all(0.0),
         decoration: new BoxDecoration(
-            image: new DecorationImage(
-                fit: BoxFit.fitWidth,
-                image: new AssetImage('images/main_nav_header_bg.png'))),
+            image: displayType == 1
+                ? new DecorationImage(
+                    fit: BoxFit.fitWidth,
+                    image: new AssetImage('images/main_nav_header_bg.png'))
+                : null),
         child: new Stack(
           children: <Widget>[
             new Positioned(
@@ -59,24 +65,8 @@ class HomeDrawer extends StatelessWidget {
                       width: 72.0,
                       height: 72.0,
                       alignment: Alignment.topLeft,
-//                      child: new CachedNetworkImage(
-//                        imageUrl:
-//                            'https://avatars2.githubusercontent.com/u/14973323?s=460&v=4',
-//                        placeholder: new CircularProgressIndicator(),
-//                        errorWidget: new Icon(Icons.error),
-//                        width: 72.0,
-//                        height: 72.0,
-//                        fit: BoxFit.fill,
-//                      ),
                       child: new CircleAvatar(
                         radius: 36.0,
-//                        child: new CachedNetworkImage(
-//                            placeholder: new CircularProgressIndicator(
-//                              backgroundColor: Colors.white70,
-//                            ),
-//                            errorWidget: new Icon(Icons.error),
-//                            imageUrl:
-//                                'https://avatars2.githubusercontent.com/u/14973323?s=460&v=4'),
                         backgroundImage: new CachedNetworkImageProvider(
                             'http://www.juzisang.com/usr/uploads/2017/11/1677554480.jpg'),
                       ),
@@ -113,9 +103,15 @@ class HomeDrawer extends StatelessWidget {
               top: 24.0,
               child: new GestureDetector(
                 onTap: onAppDisplayType,
-                child: new ImageIcon(
-                  new AssetImage('images/ic_brightness_3_white_24dp.png'),
-                ),
+                child: displayType == 1
+                    ? new Icon(
+                        Icons.brightness_2,
+                        color: Colors.white,
+                      )
+                    : new Icon(
+                        Icons.brightness_5,
+                        color: Colors.white,
+                      ),
               ),
             ),
             new Positioned(

@@ -28,13 +28,19 @@ class HomeState extends State<Home> {
               _scaffoldKey.currentState.openDrawer();
             }),
       ),
-      drawer: new StoreConnector<AppState, VoidCallback>(
+      drawer: new StoreConnector<AppState, Map<String, dynamic>>(
         converter: (store) {
-          return () => store.dispatch(new AppConfigAction(
-              displayType: store.state.config.displayType == 1 ? 0 : 1));
+          return {
+            'onAppDisplayType': () {
+              store.dispatch(new AppConfigAction(
+                  displayType: store.state.config.displayType == 1 ? 0 : 1));
+            },
+            'config': store.state.config,
+          };
         },
-        builder: (context, callback) {
+        builder: (context, store) {
           return new HomeDrawer(
+            displayType: store['config'].displayType,
             selectItemMenu: selectItemMenu,
             onSelectListener: (item) {
               setState(() {
@@ -44,9 +50,7 @@ class HomeState extends State<Home> {
             onBottomClickListener: (item) {
               print(item);
             },
-            onAppDisplayType: () {
-              callback();
-            },
+            onAppDisplayType: store['onAppDisplayType'],
           );
         },
       ),
