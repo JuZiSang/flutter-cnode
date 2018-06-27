@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_cnode/widget/widget.dart' show HomeDrawer;
 import 'package:flutter_cnode/store/store.dart';
+import 'package:flutter_cnode/ui/article_list.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -54,7 +55,7 @@ class HomeState extends State<Home> {
           );
         },
       ),
-      body: null,
+      body: new ArticleList(),
     );
   }
 }

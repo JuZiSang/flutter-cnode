@@ -109,7 +109,7 @@ class HomeDrawer extends StatelessWidget {
                         color: Colors.white,
                       )
                     : new Icon(
-                        Icons.brightness_5,
+                        Icons.brightness_7,
                         color: Colors.white,
                       ),
               ),
@@ -142,19 +142,10 @@ class HomeDrawer extends StatelessWidget {
         children: <Widget>[
           new Column(
             children: articleListTiles.map((item) {
-              return new ListTile(
-                leading: new Icon(item.icon),
-                selected: selectItemMenu == item.title,
-                title: new Text(
-                  item.title,
-                  style: new TextStyle(fontSize: 14.0),
-                ),
-                onTap: () {
-                  if (onSelectListener != null) {
-                    onSelectListener(item.title);
-                  }
-                  Navigator.pop(context);
-                },
+              return new DrawerItem(
+                item: item,
+                onSelectListener: onSelectListener,
+                select: selectItemMenu == item.title,
               );
             }).toList(),
           ),
@@ -191,6 +182,37 @@ class HomeDrawer extends StatelessWidget {
           _newDrawerHeader(context),
           _articleListItem(context),
         ],
+      ),
+    );
+  }
+}
+
+class DrawerItem extends StatelessWidget {
+  ListItem item;
+  bool select;
+  Function onSelectListener;
+
+  DrawerItem({this.item, this.select, this.onSelectListener});
+
+  @override
+  Widget build(BuildContext context) {
+    return new Container(
+      color: select
+          ? Theme.of(context).dividerColor.withAlpha(16)
+          : Colors.transparent,
+      child: new ListTile(
+        leading: new Icon(item.icon),
+        selected: select,
+        title: new Text(
+          item.title,
+          style: new TextStyle(fontSize: 14.0),
+        ),
+        onTap: () {
+          if (onSelectListener != null) {
+            onSelectListener(item.title);
+          }
+          Navigator.pop(context);
+        },
       ),
     );
   }
