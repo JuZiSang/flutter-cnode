@@ -11,23 +11,38 @@ class ArticleList extends StatefulWidget {
 }
 
 class ArticleListState extends State<ArticleList> {
+  List articleList = [];
+
   _getTopicList() async {
     Response response = await new HttpManage()
         .getTopicList(limit: '10', tab: 'ask', page: '1', mdrender: 'false');
-    response.data['data'].forEach((item) => print(item['content']));
+    articleList = response.data['data'];
   }
 
   @override
   void initState() {
-    // TODO: implement initState
-    super.initState();
     _getTopicList();
+    super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    return new Container(
-      child: null,
+    return new ListView.builder(
+      itemCount: articleList.length,
+      itemBuilder: (context, index) {
+        return new ArticleItem(articleList[index]);
+      },
     );
+  }
+}
+
+class ArticleItem extends StatelessWidget {
+  var articleList;
+
+  ArticleItem(articleList);
+
+  @override
+  Widget build(BuildContext context) {
+    return new Container();
   }
 }
