@@ -177,11 +177,15 @@ class HomeDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return new Drawer(
-      child: new Column(
-        children: <Widget>[
-          _newDrawerHeader(context),
-          _articleListItem(context),
-        ],
+      child: new MediaQuery.removePadding(
+        context: context,
+        removeTop: true,
+        child: new ListView(
+          children: <Widget>[
+            _newDrawerHeader(context),
+            _articleListItem(context),
+          ],
+        ),
       ),
     );
   }
