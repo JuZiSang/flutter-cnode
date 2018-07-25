@@ -34,15 +34,16 @@ class HomeState extends State<Home> {
           return {
             'onAppDisplayType': (theme) {
               store.dispatch(theme == 0
-                  ? AppTheme.DARK_THEME
-                  : AppTheme.LIGHT_THEME);
+                  ? AppThemeAction.DARK_THEME
+                  : AppThemeAction.LIGHT_THEME);
             },
             'config': store.state.config,
           };
         },
         builder: (context, store) {
           return new HomeDrawer(
-            themeType: store['config'].theme == AppTheme.LIGHT_THEME ? 1 : 0,
+            themeType:
+                store['config'].themeType == AppThemeAction.LIGHT_THEME ? 1 : 0,
             selectItemMenu: selectItemMenu,
             onSelectListener: (item) {
               setState(() {
