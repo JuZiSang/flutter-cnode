@@ -6,7 +6,7 @@ class HomeDrawer extends StatelessWidget {
   String selectItemMenu;
 
   // 显示模式
-  int displayType;
+  int themeType;
 
   // 选择的item
   Function onSelectListener;
@@ -34,7 +34,7 @@ class HomeDrawer extends StatelessWidget {
 
   HomeDrawer({
     @required this.selectItemMenu,
-    this.displayType = 1,
+    this.themeType = 1,
     this.onSelectListener,
     this.onBottomClickListener,
     this.onAppDisplayType,
@@ -45,7 +45,7 @@ class HomeDrawer extends StatelessWidget {
     return new DrawerHeader(
         padding: const EdgeInsets.all(0.0),
         decoration: new BoxDecoration(
-            image: displayType == 1
+            image: themeType == 1
                 ? new DecorationImage(
                     fit: BoxFit.fitWidth,
                     image: new AssetImage('images/main_nav_header_bg.png'))
@@ -102,8 +102,12 @@ class HomeDrawer extends StatelessWidget {
               right: 24.0,
               top: 24.0,
               child: new GestureDetector(
-                onTap: onAppDisplayType,
-                child: displayType == 1
+                onTap: () {
+                  if (onAppDisplayType != null) {
+                    onAppDisplayType(themeType == 1 ? 0 : 1);
+                  }
+                },
+                child: themeType == 1
                     ? new Icon(
                         Icons.brightness_2,
                         color: Colors.white,

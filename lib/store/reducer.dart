@@ -9,15 +9,8 @@ AppState appReducer(AppState state, dynamic action) {
 }
 
 ConfigState configReducer(ConfigState state, dynamic action) {
-  if (action is AppConfigAction) {
-    switch (action.displayType) {
-      case 0:
-        state = new ConfigState(displayType: 0);
-        break;
-      case 1:
-        state = new ConfigState(displayType: 1);
-        break;
-    }
+  if (action is AppTheme) {
+    state = new ConfigState(theme: action);
   }
   return state;
 }

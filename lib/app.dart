@@ -18,10 +18,10 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return new StoreProvider<AppState>(
       store: store,
-      child: new StoreConnector<AppState, int>(
-        converter: (store) => store.state.config.displayType,
-        builder: (context, displayType) {
-          ThemeData theme = displayType == 1
+      child: new StoreConnector<AppState, AppTheme>(
+        converter: (store) => store.state.config.theme,
+        builder: (context, themeType) {
+          ThemeData theme = themeType == AppTheme.LIGHT_THEME
               ? ThemeData.light().copyWith(
                     primaryColor: new Color(0xff333333),
                     accentColor: new Color(0xff333333),

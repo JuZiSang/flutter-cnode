@@ -32,16 +32,17 @@ class HomeState extends State<Home> {
       drawer: new StoreConnector<AppState, Map<String, dynamic>>(
         converter: (store) {
           return {
-            'onAppDisplayType': () {
-              store.dispatch(new AppConfigAction(
-                  displayType: store.state.config.displayType == 1 ? 0 : 1));
+            'onAppDisplayType': (theme) {
+              store.dispatch(theme == 0
+                  ? AppTheme.DARK_THEME
+                  : AppTheme.LIGHT_THEME);
             },
             'config': store.state.config,
           };
         },
         builder: (context, store) {
           return new HomeDrawer(
-            displayType: store['config'].displayType,
+            themeType: store['config'].theme == AppTheme.LIGHT_THEME ? 1 : 0,
             selectItemMenu: selectItemMenu,
             onSelectListener: (item) {
               setState(() {

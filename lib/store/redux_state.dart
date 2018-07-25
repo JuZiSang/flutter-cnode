@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import './actions.dart';
 
+// App 总数据
 class AppState {
   ConfigState config;
 
@@ -11,14 +13,15 @@ class AppState {
     return new AppState(
       config: new ConfigState(
         // 主题
-        displayType: 1,
+        theme: AppTheme.LIGHT_THEME,
       ),
     );
   }
 }
 
+// app 配置相关
 class ConfigState {
-  int displayType;
+  AppTheme theme;
 
-  ConfigState({this.displayType});
+  ConfigState({this.theme});
 }
